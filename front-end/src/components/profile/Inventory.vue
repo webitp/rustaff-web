@@ -4,7 +4,6 @@
       .table__row.head
         .table__col.flex-start Товар
         .table__col.flex-start Название
-        .table__col Игровое название
         .table__col Количество
         .table__col Дата
 
@@ -12,7 +11,6 @@
         .table__col.flex-start 
           img(:src="getItemImage(item)")
         .table__col.flex-start {{ item.name }}
-        .table__col {{ item.game_name }}
         .table__col {{ item.count }}
         .table__col {{ formatDate(item.created_at) }}
 
@@ -61,7 +59,7 @@ export default {
   overflow hidden
 
   &__row
-    grid-template-columns repeat(5, 1fr)
+    grid-template-columns repeat(4, 1fr)
 
     img
       height 100px

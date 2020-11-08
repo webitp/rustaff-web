@@ -36,8 +36,7 @@
           .purchase-item.shop-items__item
             .price {{ purchase.item.price }} ₽
             .shop-items__item-icon
-              img(v-if="purchase.item.image", :src="purchase.item.image")
-              img(v-else, :src="require(`../../public/images/items/${purchase.item.game_name.replaceAll('_', '.')}.png`)")
+              img(:src="getItemImage(purchase.item)")
             .purchase-item__data
               h2 {{ purchase.item.name }} 
                 span(v-if="purchase.item.count > 1") (x{{ purchase.item.count * purchase.count }})

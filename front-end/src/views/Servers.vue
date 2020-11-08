@@ -152,4 +152,14 @@ export default {
 
             span
               color #E2E2E2
+
+@media screen and (max-width: 1250px)
+  .servers-list
+    max-width 100vw
+    overflow-x scroll
+    box-sizing border-box
+
+    &__item
+      width 1000px
+    // transform scale(0.5)
 </style>

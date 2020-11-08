@@ -8,23 +8,8 @@
             span игроков
         .stats-card__content
           .row
-            p Огнестрельное оружие:
-            span 55
-          .row
-            p Холодное оружие:
-            span 55
-          .row
-            p Лук:
-            span 55
-          .row
-            p В голову:
-            span 55
-          .row
-            p Раненых:
-            span 55
-          .row
-            p Спящих:
-            span 55
+            p Количество:
+            span {{ player.kills }}
 
       .stats-card
         .stats-card__title
@@ -33,23 +18,8 @@
             span животных
         .stats-card__content
           .row
-            p Медведи:
-            span 55
-          .row
-            p Волки:
-            span 55
-          .row
-            p Кабаны:
-            span 55
-          .row
-            p Курицы:
-            span 55
-          .row
-            p Лошади:
-            span 55
-          .row
-            p Олени:
-            span 55
+            p Количество:
+            span {{ player.animal_kills }}
 
       .stats-card
         .stats-card__title
@@ -58,23 +28,8 @@
             span смертей
         .stats-card__content
           .row
-            p Игроков:
-            span 55
-          .row
-            p Животных:
-            span 55
-          .row
-            p Вертолеты:
-            span 55
-          .row
-            p Ловушки:
-            span 55
-          .row
-            p Радиация:
-            span 55
-          .row
-            p Самоубийства:
-            span 55
+            p Количество:
+            span {{ player.death }}
 
     .stats-row.long
       .stats-card
@@ -86,88 +41,26 @@
           .stats-card__content
             .row
               p Древесина:
-              span 55
+              span {{ player.wood }} 
+            .row
+              p Металл:
+              span {{ player.metall_ore }}
+
+          .stats-card__content
             .row
               p Камень:
-              span 55
-            .row
-              p Железная руда:
-              span 55
-            .row
-              p МВК руда:
-              span 55
-            .row
-              p Ткань:
-              span 55
-            .row
-              p Кожа:
-              span 55
-            .row
-              p Кабанье мясо:
-              span 55
-            .row
-              p Куриное мясо:
-              span 55
-
-          .stats-card__content
-            .row
-              p Тыквы:
-              span 55
-            .row
-              p Кукуруза:
-              span 55
-            .row
-              p Семена тыквы:
-              span 55
-            .row
-              p Семена кукурузы:
-              span 55
-            .row
-              p Огнестрельное оружие:
-              span 55
-            .row
-              p Семена конопли:
-              span 55
-            .row
-              p Человеческое мясо:
-              span 55
-            .row
-              p Грибы:
-              span 55
-
-          .stats-card__content
+              span {{ player.stones }}
             .row
               p Сера:
-              span 55
-            .row
-              p Мякоть кактуса:
-              span 55
-            .row
-              p Животный жир:
-              span 55
-            .row
-              p Обломки костей:
-              span 55
-            .row
-              p Медвежье мясо:
-              span 55
-            .row
-              p Волчье мясо:
-              span 55
-            .row
-              p Человеческие черепа:
-              span 55
-            .row
-              p Волчьи черепа:
-              span 55
+              span {{ player.sulfur }}
 </template>
 
 <script>
 export default {
   name: 'ProfileStats',
+  props: ['player'],
   data() {
     return {
-
     }
   }
 }
@@ -185,6 +78,9 @@ export default {
 
     &.long
       justify-content center
+
+      .stats-card__cols
+        grid-template-columns repeat(2, 1fr)
 
       .stats-card
         width 100%

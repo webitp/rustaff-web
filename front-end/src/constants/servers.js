@@ -1,8 +1,8 @@
 export default [
   {
-    name: 'RUSTAFF #1 MAX 2',
-    ip: '213.5.228.16',
-    port: 10000,
+    name: 'RUSTAFF #1 [X2 | NO LIMITS]',
+    ip: 's1.rustaff.net',
+    port: 28015,
     wipe: '2 дня. 2 ч. 30 мин.',
     state: 'aviable'
   },

@@ -29,7 +29,15 @@ Route::post('payment', 'PaymentController@make');
 Route::post('payments', 'PaymentController@get');
 
 Route::get('server', 'ServersController@get');
+Route::get('server/rcon', 'ServersController@rcon');
+
+Route::get('player/statistic', 'PlayerController@statistic');
 
 Route::post('purchases', 'PurchasesController@create');
 Route::get('purchases/list', 'PurchasesController@list');
 Route::post('purchases/inventory', 'PurchasesController@inventory');
+
+Route::get('kits', 'KitsController@getAll');
+Route::post('kits/create', 'KitsController@create');
+Route::get('kits/items', 'KitsItemsController@get');
+Route::post('kits/items/create', 'KitsItemsController@create');

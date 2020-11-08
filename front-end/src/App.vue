@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <notifications group="main" class="main-notify" animation-type="velocity" width="350px" position="bottom right"/>
-    <router-view/> s
+    <router-view/>
   </div>
 </template>
 
@@ -175,7 +175,7 @@ a
 .icon
   &-items
     display grid
-    grid-template-columns repeat(8, 1fr)
+    grid-template-columns repeat(auto-fill, 120px)
     grid-gap 20px
 
     &__item
@@ -210,7 +210,9 @@ a
 
 .tabs
   display flex
-  justify-content center
+  justify-content space-evenly
+  flex-wrap wrap
+  margin-top -10px
 
   &__item
     background #232937
@@ -222,7 +224,7 @@ a
     color #6C768D
     font-size 14px
     font-weight 600
-    margin-left 30px
+    margin-top 10px
     cursor pointer
     transition-duration .25s
 
@@ -230,9 +232,6 @@ a
       background #5C8DD7
       color #E2E2E2
       transition-duration .25s
-
-    &:first-child
-      margin 0
 
 .modal
   width 100vw
@@ -290,7 +289,9 @@ a
         background #d75c6d
 
 @media screen and (max-width: 1250px)
-  .content
+  .content, .footer__content
+    width 100%
+    box-sizing border-box
     padding 0 30px
 
   .header__content--menu
@@ -299,9 +300,48 @@ a
   .header__content--profile
     right 30px !important
 
+  .home
+    &__data 
+      &--text
+        p, p span
+          font-size 2.5vw !important
+
+      img.target
+        width 90vw
+
+      .alive
+        font-size 5vw !important
+        padding 0 5vw !important
+        height 8vw !important
+        line-height 8vw !important
+  
+      &--button, img.target
+        margin-top 5vw !important
+
+@media screen and (max-width: 800px)
+  .stats-card
+    width 100% !important
+
+    &__cols
+      grid-template-columns 1fr !important
+
 @media screen and (max-width: 650px)
   .header__content--logo
     display none !important
+
+  .search
+    grid-template-columns 1fr !important
+
+    &-button
+      height 50px
+
+  .profile__nav .content
+    display flex
+    overflow auto
+
+  .profile__header-stats
+    p
+      display none
 
 @media screen and (max-width: 590px)
   .header__overlay-content li

@@ -33,4 +33,32 @@ class ServersController extends Controller
 
         $query->Disconnect();
     }
+
+    public function rcon(Request $request)
+    {
+        $sq_ip = '37.46.129.24';
+        $sq_port = 28015;
+        $sq_timeout = 1;
+        $sq_engine = SourceQuery::SOURCE;
+
+        $query = new SourceQuery();
+
+        try
+        {
+            $query->Connect($sq_ip, $sq_port, $sq_timeout, $sq_engine);
+
+            $query->SetRconPassword('daAs2Sf91F');
+            $data = $query->GetInfo();
+            $query->Disconnect();
+
+            return response()->json($data, 200);
+        }
+        catch (Exception $e)
+        {
+            $query->Disconnect();
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 200);
+        }
+    }
 }

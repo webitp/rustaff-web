@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Config;
 use App\User;
 use App\Payments;
 use Illuminate\Http\Request;
@@ -10,8 +11,12 @@ class PaymentController extends Controller
 {
     public function make(Request $request)
     {
+        $shop = Config::get('payment.shop');
+        $secret = Config::get('payment.secret');
+
         $sum = $request->AMOUNT;
         $steamid = $request->MERCHANT_ORDER_ID;
+        $signature = $request->SIGN;
 
         $user = User::where('steamid', '=', $steamid)->first();
         if ($user)
@@ -24,9 +29,9 @@ class PaymentController extends Controller
                 'amount' => $sum
             ]);
 
-            return $this->sendResponse(true);
+            return $this->sendResponse('YES');
         }
-        return $this->sendResponse(false);
+        return $this->sendResponse('NO');
     }
 
     public function get(Request $request)
@@ -38,8 +43,11 @@ class PaymentController extends Controller
 
     private function sendResponse($status)
     {
-        return response()->json([
-            'status' => $status
-        ], 200);
+        return response()->json($status, 200);
+    }
+
+    private function getFormSignature($shop, $sum, $secret, $order) 
+    {
+        return md5($shop . ':' . $sum . ':' . $secret . ':' . $order);
     }
 }

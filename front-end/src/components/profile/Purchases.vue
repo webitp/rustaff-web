@@ -11,7 +11,6 @@
       .table__row.head
         .table__col.flex-start Товар
         .table__col.flex-start Название
-        .table__col Тип
         .table__col Количество
         .table__col Цена
         .table__col Дата
@@ -20,7 +19,6 @@
         .table__col.flex-start
           img(:src="getItemImage(purchase)")
         .table__col.flex-start {{ purchase.name }}
-        .table__col {{ purchase.type }}
         .table__col {{ purchase.count }}
         .table__col {{ purchase.price * purchase.count }} ₽
         .table__col {{ formatDate(purchase.created_at) }}
@@ -80,7 +78,7 @@ export default {
   margin-top 30px
 
   &__row
-    grid-template-columns 1fr 2fr repeat(4, 1fr)
+    grid-template-columns 1fr 2fr repeat(3, 1fr)
 
     img
       height 100px

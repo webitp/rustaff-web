@@ -1,6 +1,9 @@
 <template lang="pug">
   .profile
     main-header
+
+    transition(name="fade")
+      payment-modal(v-if="modals.payment.open", @close="closeModal('payment')")
     
     .profile__header.content-container
       .content(v-if="user")
@@ -13,40 +16,40 @@
               h2 {{ user.name }}
               .data-text Баланс: 
                 span {{ user.money }} ₽
-                img(src="../assets/images/add-green.svg")
+                img(src="../assets/images/add-green.svg", style="cursor: pointer;", @click="openModal('payment')")
           
         .profile__header-stats
-          .stats-col
-            .stats-col__icon
-              img(src="../assets/images/icons/stats/fist.svg")
-            .stats-col__data
-              p Очки:
-              span 0
+          //- .stats-col
+          //-   .stats-col__icon
+          //-     img(src="../assets/images/icons/stats/fist.svg")
+          //-   .stats-col__data
+          //-     p Очки:
+          //-     span 0
           .stats-col
             .stats-col__icon
               img(src="../assets/images/icons/stats/crosshair.svg")
             .stats-col__data
               p K/D:
-              span 0
+              span {{ player.death == 0 ? 0 : (player.kills / player.death).toFixed(2) }}
           .stats-col
             .stats-col__icon
               img(src="../assets/images/icons/stats/clock.svg")
             .stats-col__data
               p Время в игре:
-              span 0
+              span {{ playTime }}
           .stats-col
             .stats-col__icon
               img(src="../assets/images/icons/stats/gas.svg")
             .stats-col__data
               p Активность:
-              span 0
+              span {{ activity }}
     nav.profile__nav.content-container
       .content
         a.profile__nav-link(v-for="(link, idx) in navLinks", :key="idx", :class="{ active: link.link == `/profile/${page}` }", :href="link.link") {{ link.name }}
 
     .content-container
       .content.main(style="padding-bottom: 30px")
-        profile-stats(v-if="page == 'stats'")
+        profile-stats(v-if="page == 'stats'", :player="player")
         profile-purchases(v-if="page == 'purchases'")
         profile-inventory(v-if="page == 'inventory'")
         profile-payments(v-if="page == 'payments'")
@@ -59,6 +62,7 @@ import 'vue-router';
 
 import store from '@/store'
 
+import playerService from '../services/player';
 import logoutService from '../services/logout'
 
 import MainHeader from '../components/Header';
@@ -69,6 +73,8 @@ import ProfilePurchases from '../components/profile/Purchases';
 import ProfileInventory from '../components/profile/Inventory';
 import ProfilePayments from '../components/profile/Payments';
 
+import PaymentModal from '../components/PaymentModal';
+
 export default {
   name: 'Profile',
   components: {
@@ -77,11 +83,19 @@ export default {
     ProfileStats,
     ProfilePurchases,
     ProfileInventory,
-    ProfilePayments
+    ProfilePayments,
+    PaymentModal
   },
   data() {
     return {
+      modals: {
+        payment: {
+          open: false,
+        }
+      },
+
       user: store.state.user,
+      player: {},
       page: 'stats',
       navLinks: [
         {
@@ -104,13 +118,43 @@ export default {
     }
   },
 
+  computed: {
+    playTime() {
+      var seconds = this.player.time;
+      var minutes = Math.round(seconds / 60);
+      var hours = minutes > 60 ? Math.round(minutes / 60) : 0;
+      
+      if (minutes > 60)
+        minutes %= 60;
+
+      return `${hours} ч. ${minutes} мин. ${seconds % 60} сек.`;
+    },
+
+    activity() {
+      const date = new Date(this.player.updated_at);
+      const time = date.toLocaleTimeString().split(':');
+
+      return date.toLocaleDateString() + ' ' + `${time[0]}:${time[1]}`;
+    }
+  },
+
   async created() {
     this.page = this.$route.params.page;
+
+    this.player = (await playerService.statistic(this.user.steamid)).data;
   },
 
   methods: {
     logout() {
       logoutService();
+    },
+
+    openModal(name) {
+      this.modals[name].open = true;
+    },
+
+    closeModal(name) {
+      this.modals[name].open = false;
     }
   }
 }
