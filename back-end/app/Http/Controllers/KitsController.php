@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Kits;
+use App\KitsItems;
 use Illuminate\Http\Request;
 
 class KitsController extends Controller
@@ -10,7 +11,20 @@ class KitsController extends Controller
     public function getAll(Request $request)
     {
         $kits = Kits::all();
-        return response()->json($kits, 200);
+
+        $res = [];
+        foreach ($kits as $kit) 
+        {
+            array_push($res, [
+                'id' => $kit->id,
+                'name' => $kit->name,
+                'cooldown' => $kit->cooldown,
+                'category' => $kit->category,
+                'items' => KitsItems::where('kit', '=', $kit->id)->get()
+            ]);
+        }
+
+        return response()->json($res, 200);
     }
 
     public function create(Request $request)

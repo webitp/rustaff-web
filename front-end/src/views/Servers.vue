@@ -28,7 +28,7 @@
                   img(src="../assets/images/icons/stats/clock.svg")
                 .data
                   p До вайпа: <br>
-                    span {{ server.state == 'aviable' ? server.wipe : 'В разработке' }}
+                    span {{ server.state == 'aviable' ? wipeTime : 'В разработке' }}
 
               .servers-list__item--col
                 .icon
@@ -56,11 +56,18 @@ export default {
   },
   data() {
     return {
-      servers: []
+      servers: [],
+
+      wipeTimeConstant: null,
+      wipeTime: ''
     }
   },
 
   async created() {
+    this.wipeTimeConstant = this.getWipeTime();
+
+    this.wipeTime = this.formatWipeTimeText();
+
     this.servers = serversList;
 
     for (let i = 0; i < this.servers.length; ++i) {
@@ -74,6 +81,40 @@ export default {
     }
 
     this.$forceUpdate();
+  },
+
+  methods: {
+    formatWipeTimeText() {
+      var date = this.wipeTimeConstant;
+      var duration = date.getTime() - (new Date()).getTime();
+
+      if ((new Date()).getUTCDay() == 5) {
+        duration = 604800000 + duration;
+      }
+
+      // var seconds = parseInt((duration/1000)%60);
+      var minutes = parseInt((duration/(1000*60))%60);
+      var hours = parseInt((duration/(1000*60*60))%24);
+      var days = parseInt(duration/(1000*60*60*24));
+
+      return `${days}дн. ${hours}ч. ${minutes}мин.`;
+    },
+
+    getWipeTime() {
+      var date = new Date();
+      var day = date.getUTCDay();
+
+      while (day != 5) {
+        date.setUTCHours(date.getUTCHours() + 1);
+        day = date.getUTCDay();
+      }
+
+      date.setHours(18);
+      date.setMinutes(0);
+      date.setSeconds(0);
+
+      return date;
+    }
   }
 }
 </script>

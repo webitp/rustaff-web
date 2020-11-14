@@ -37,7 +37,7 @@ export default {
           sum: this.sum,
           steamid: this.user.steamid
         })).data;
-        window.open(data.url);
+        location.href = data.url;
         this.close();
       }
     }

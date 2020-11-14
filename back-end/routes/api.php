@@ -41,3 +41,5 @@ Route::get('kits', 'KitsController@getAll');
 Route::post('kits/create', 'KitsController@create');
 Route::get('kits/items', 'KitsItemsController@get');
 Route::post('kits/items/create', 'KitsItemsController@create');
+
+Route::get('bans', 'BansController@get');

@@ -7,14 +7,14 @@ export default [
     state: 'aviable'
   },
   {
-    name: 'RUSTAFF #1 MAX 4',
+    name: 'RUSTAFF #2',
     ip: '',
     port: 0,
     wipe: '',
     state: 'development'
   },
   {
-    name: 'RUSTAFF #1 MAX 6',
+    name: 'RUSTAFF #3',
     ip: '',
     port: 0,
     wipe: '',

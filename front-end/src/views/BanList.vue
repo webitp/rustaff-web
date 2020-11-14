@@ -11,8 +11,8 @@
         .search
           .search-input
             img(src="../assets/images/search.svg")
-            input(placeholder="Введите название для поиска")
-          button.search-button Хотите разбан?
+            input(placeholder="Введите название для поиска", v-model="search")
+          a.search-button(href="https://vk.com/rustaffnet") Хотите разбан?
       
         .table
           .table__row.head
@@ -21,16 +21,12 @@
             .table__col Дата
             .table__col Страница
 
-          .table__row
-            .table__col.flex-start Игрок
-            .table__col Причина
-            .table__col Дата
-            .table__col Страница
-          .table__row
-            .table__col.flex-start Игрок
-            .table__col Причина
-            .table__col Дата
-            .table__col Страница
+          .table__row(v-for="ban in filtredBans")
+            .table__col.flex-start {{ ban.name }}
+            .table__col {{ ban.reason }}
+            .table__col {{ formatDate(ban.created_at) }}
+            .table__col 
+              a(:href="`https://steamcommunity.com/profiles/${ban.steamid}/`", target="_blank") Страница
 
     main-footer
 </template>
@@ -38,6 +34,8 @@
 <script>
 import MainHeader from '../components/Header';
 import MainFooter from '../components/Footer';
+
+import banServices from '../services/bans';
 
 export default {
   name: 'BanList',
@@ -47,11 +45,31 @@ export default {
   },
   data() {
     return {
-      
+      bans: [],
+      search: ''
     }
   },
 
-  created() {
+  computed: {
+    filtredBans() {
+      var res = [];
+      for (const ban of this.bans) {
+        if (ban.name.toLowerCase().indexOf(this.search) > -1)
+          res.push(ban);
+      }
+      return res;
+    }
+  },
+
+  async created() {
+    this.bans = (await banServices.list()).data;
+  },
+
+  methods: {
+    formatDate(time) {
+      const date = new Date(time);
+      return date.toLocaleString('ru-RU');
+    }
   }
 }
 </script>
@@ -66,6 +84,18 @@ export default {
 .bans
   .search
     grid-template-columns 1fr 14.5%
+
+    &-button
+      display flex
+      justify-content center
+      align-items center
+
+  .table__col
+    a
+      color #808fac
+
+      &:hover
+        text-decoration underline
 
 .content-container
   margin-top 105px
