@@ -16,6 +16,12 @@ class ItemsController extends Controller
         return response()->json($items, 200);
     }
 
+    public function get(Request $request)
+    {
+        $item = Items::where('game_name', '=', $request->id)->first();
+        return response()->json($item, 200);
+    }
+
     public function create(Request $request)
     {
         if ($request->name) {

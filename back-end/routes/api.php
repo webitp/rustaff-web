@@ -21,6 +21,7 @@ Route::post('categories/create', 'CategoriesController@create');
 Route::post('categories/delete', 'CategoriesController@delete');
 
 Route::get('items', 'ItemsController@list');
+Route::get('items/get', 'ItemsController@get');
 Route::post('items/payment', 'ItemsController@payment');
 Route::post('items/create', 'ItemsController@create');
 Route::post('items/delete', 'ItemsController@delete');
@@ -43,3 +44,11 @@ Route::get('kits/items', 'KitsItemsController@get');
 Route::post('kits/items/create', 'KitsItemsController@create');
 
 Route::get('bans', 'BansController@get');
+
+Route::get('rullet/items', 'RulletController@items');
+Route::post('rullet/add', 'RulletController@add');
+Route::post('rullet/delete', 'RulletController@delete');
+Route::post('rullet/predict', 'RulletController@predict');
+Route::post('rullet/give', 'RulletController@givePrize');
+Route::post('rullet/access', 'RulletController@access');
+Route::post('rullet/use', 'RulletController@use');

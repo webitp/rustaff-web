@@ -47,6 +47,6 @@ class PurchasesController extends Controller
     }
 
     private function getPlayerPurchasesQuery($steamid) {
-        return 'SELECT t1.steamid, t1.item, t1.count, t1.used, t1.created_at, t2.name, t2.game_name, t2.price, t2.type, t2.image FROM purchases AS t1 LEFT JOIN items as t2 ON t1.item = t2.id WHERE t1.steamid = ?';
+        return 'SELECT t1.steamid, t1.item, t1.count, t1.used, t1.created_at, t2.name, t2.game_name, t2.price, t2.type, t2.image, t2.count as item_count FROM purchases AS t1 LEFT JOIN items as t2 ON t1.item = t2.id WHERE t1.steamid = ?';
     }
 }

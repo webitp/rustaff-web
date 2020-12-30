@@ -30,7 +30,7 @@
               img(src="../assets/images/icons/stats/crosshair.svg")
             .stats-col__data
               p K/D:
-              span {{ player.death == 0 ? 0 : (player.kills / player.death).toFixed(2) }}
+              span(style="color: #6C768D") <span style="color: #45A35A">{{ player.kills }}</span>/<span style="color: #E93737">{{ player.death }}</span>
           .stats-col
             .stats-col__icon
               img(src="../assets/images/icons/stats/clock.svg")
@@ -42,7 +42,8 @@
               img(src="../assets/images/icons/stats/gas.svg")
             .stats-col__data
               p Активность:
-              span {{ activity }}
+              span(v-if="!player.online") {{ activity }}
+              span(v-else, style="color: #45a35a") В сети
     nav.profile__nav.content-container
       .content
         a.profile__nav-link(v-for="(link, idx) in navLinks", :key="idx", :class="{ active: link.link == `/profile/${page}` }", :href="link.link") {{ link.name }}
@@ -53,6 +54,7 @@
         profile-purchases(v-if="page == 'purchases'")
         profile-inventory(v-if="page == 'inventory'")
         profile-payments(v-if="page == 'payments'")
+        profile-rulet(v-if="page == 'roll'")
 
     main-footer
 </template>
@@ -72,6 +74,7 @@ import ProfileStats from '../components/profile/Stats';
 import ProfilePurchases from '../components/profile/Purchases';
 import ProfileInventory from '../components/profile/Inventory';
 import ProfilePayments from '../components/profile/Payments';
+import ProfileRulet from '../components/profile/Rulet';
 
 import PaymentModal from '../components/PaymentModal';
 
@@ -84,6 +87,7 @@ export default {
     ProfilePurchases,
     ProfileInventory,
     ProfilePayments,
+    ProfileRulet,
     PaymentModal
   },
   data() {
@@ -113,6 +117,10 @@ export default {
         {
           name: 'Платежи',
           link: '/profile/payments'
+        },
+        {
+          name: 'Рулетка',
+          link: '/profile/roll'
         }
       ]
     }
@@ -127,14 +135,12 @@ export default {
       if (minutes > 60)
         minutes %= 60;
 
-      return `${hours} ч. ${minutes} мин. ${seconds % 60} сек.`;
+      return `${hours} ч. ${minutes} мин.`;
     },
 
     activity() {
       const date = new Date(this.player.updated_at);
-      const time = date.toLocaleTimeString().split(':');
-
-      return date.toLocaleDateString() + ' ' + `${time[0]}:${time[1]}`;
+      return date.toLocaleDateString();
     }
   },
 

@@ -107,6 +107,12 @@ class RegisterController extends Controller
                 'avatar' => $data->avatarfull,
                 'money' => 0
             ]);
+        } else {
+            if ($user->remember_token == null) {
+                $user->remember_token = Hash::make(time());
+                $user->avatar = $data->avatarfull;
+                $user->save();
+            }
         }
         return $user;
     }

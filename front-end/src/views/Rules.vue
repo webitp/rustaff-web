@@ -24,8 +24,8 @@
             <br>
             <span class="subtitle">2. Основное:</span><br>
             <br>
-            - Запрещино распространять читы/макросы.<br>
-            - Запрещино использовать ники ADMIN/MODER, а так же выдавать себя за Администратора/Модера проекта.<br>
+            - Запрещено распространять читы/макросы.<br>
+            - Запрещено использовать ники ADMIN/MODER, а так же выдавать себя за Администратора/Модера проекта.<br>
             - Запрещено использовать или хранить читы/макросы.<br>
             - Запрещается игра с играками которые используют читы/макросы.<br>
             - Запрещается любой багаюз в игре.<br>
@@ -58,26 +58,18 @@
             <br>
             <span class="subtitle"><b>Список команд</b></span><br>
             <br>
-            <span class="bold">/tpr</span> - игрок Отправить запрос на телепортацию к игроку.<br>
-            <span class="bold">/tpa</span> - Принять запрос на телепортацию.<br>
-            <span class="bold">/tpc</span> - Отменить/отклонить телепортацию.<br>
-            <span class="bold">/sethome</span> - название Сохранить местоположение дома.<br>
-            <span class="bold">/removehome</span> - название удалить дом с указанным названием.<br>
+            <span class="bold">/tp [ник]</span> - Отправить запрос на телепортацию к игроку.<br>
+            <span class="bold">/sethome [название]</span> - Сохранить местоположение дома.<br>
+            <span class="bold">/removehome [название]</span> - Удалить дом с указанным названием.<br>
             <span class="bold">/home list</span> - Показать список Ваших домов.<br>
-            <span class="bold">/home название</span> - Телепортироваться на дом с указанным названием.<br>
+            <span class="bold">/home [название]</span> - Телепортироваться на дом с указанным названием.<br>
             <span class="bold">/kit</span> - Показать меню наборов.<br>
-            <span class="bold">/report</span> - сообщение Отправить сообщение всем модераторам сервера.<br>
-            <span class="bold">/store</span> - забрать купленые в магазине товары.<br>
-            <span class="bold">/pm</span> - личное сообщени.<br>
-            <span class="bold">/help</span> - помощь.<br>
+            <span class="bold">/report [сообщение]</span> - Отправить сообщение всем модераторам сервера.<br>
+            <span class="bold">/store</span> - Забрать купленые в магазине товары.<br>
+            <span class="bold">/pm [ник] [текст]</span> - Личное сообщение.<br>
+            <span class="bold">/help</span> - Помощь по серверу.<br>
+            <span class="bold">/trade [ник]</span> - Обмен между игроками.<br>
             <br>
-            <span class="subtitle"><b>Список команд для друзей и кланов:</b></span><br>
-            <br>
-            <span class="bold">/friend add</span> - игрок Отправить игроку запрос на дружбу.<br>
-            <span class="bold">/friend remove</span> - игрок Удалить друга.<br>
-            <span class="bold">/friend accept</span> - Принять запрос дружбы.<br>
-            <span class="bold">/friend deny</span> - Отклонить запрос дружбы.<br>
-            <span class="bold">/friends или /friend list</span> - Показать список друзей.<br>
 
     main-footer
 </template>

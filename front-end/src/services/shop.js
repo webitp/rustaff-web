@@ -20,6 +20,10 @@ export default {
       return request.get('/items');
     },
 
+    info(id) {
+      return request.get(`/items/get?id=${id}`);
+    },
+
     create(name, gameName, price, category, image, count) {
       return request.post('/items/create', { 
         name: name,

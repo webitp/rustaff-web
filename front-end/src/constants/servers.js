@@ -4,7 +4,16 @@ export default [
     ip: 's1.rustaff.net',
     port: 28015,
     wipe: '2 дня. 2 ч. 30 мин.',
-    state: 'aviable'
+    state: 'aviable',
+    image: 'server-bg.png'
+  },
+  {
+    name: 'RUSTAFF CLASSIC',
+    ip: 'classic.rustaff.net',
+    port: 29015,
+    wipe: '2 дня. 2 ч. 30 мин.',
+    state: 'aviable',
+    image: 'server-bg-1.png'
   },
   {
     name: 'RUSTAFF #2',

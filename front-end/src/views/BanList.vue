@@ -26,7 +26,7 @@
             .table__col {{ ban.reason }}
             .table__col {{ formatDate(ban.created_at) }}
             .table__col 
-              a(:href="`https://steamcommunity.com/profiles/${ban.steamid}/`", target="_blank") Страница
+              a(:href="`https://steamcommunity.com/profiles/${ban.steamid}/`", target="_blank") Перейти
 
     main-footer
 </template>

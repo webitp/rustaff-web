@@ -9,7 +9,7 @@
             span сервера
 
         .servers-list
-          .servers-list__item(v-for="server in servers", :class="{ aviable: server.state == 'aviable' }")
+          .servers-list__item(v-for="server in servers", :class="{ aviable: server.state == 'aviable' }", :style="`background-image: url('/images/${server.image}')`")
             .servers-list__item--name
               h2 {{ server.name }}
               a(v-if="server.state == 'aviable'", :href="`steam://connect/${server.ip}:${server.port}`") Выжить!
@@ -139,8 +139,6 @@ export default {
       margin-top 30px
 
       &.aviable
-        background-image url('../assets/images/server-bg.png')
-
         .servers-list__item
           &--name, &--data
             opacity 1
@@ -151,6 +149,7 @@ export default {
       &--name
         text-align center
         opacity .25
+        width calc(35% - 20px)
 
         h2
           font-family 'Russo One', sans-serif

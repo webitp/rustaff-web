@@ -38,6 +38,8 @@
                 a(href="/profile/purchases") Покупки
               li
                 a(href="/profile/inventory") Инвентарь
+              li
+                a(href="/profile/roll") Рулетка
               li.logout(@click="logout()")
                 a Выйти
 </template>

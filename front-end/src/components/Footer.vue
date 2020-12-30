@@ -2,7 +2,7 @@
   .footer(:class="{ main: isMain }")
     .footer__content
       p &copy 2020. RUSTAFF. Все права защищены. Design by 
-        a(href="https://vk.com/cardinal.studio", target="_blank") Cardinal Studio
+        a(href="https://vk.com/pavlov_design", target="_blank") Ivan Pavlov
       .footer__links
         a(v-for="(link, index) in links", :key="index", :href="link.href", target="_blank")
           svg

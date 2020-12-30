@@ -19,7 +19,7 @@
         .table__col.flex-start
           img(:src="getItemImage(purchase)")
         .table__col.flex-start {{ purchase.name }}
-        .table__col {{ purchase.count }}
+        .table__col {{ purchase.count * purchase.item_count }}
         .table__col {{ purchase.price * purchase.count }} ₽
         .table__col {{ formatDate(purchase.created_at) }}
 </template>

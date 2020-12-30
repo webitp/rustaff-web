@@ -40,6 +40,8 @@
             .purchase-item__data
               h2 {{ purchase.item.name }} 
                 span(v-if="purchase.item.count > 1") (x{{ purchase.item.count * purchase.count }})
+              p.description(v-if="purchase.item.type == 1", v-html="parsePrivilegeData(purchase.item.game_name).description")
+              a.kits(v-if="purchase.item.type == 1", :href="`/kits?tab=${parsePrivilegeData(purchase.item.game_name).kits_page}`") Просмотреть доступные киты
               .purchase-item__count
                 p Количество
                 .input
@@ -165,6 +167,11 @@ export default {
   },
 
   methods: {
+    parsePrivilegeData(json) {
+      console.log(json);
+      return JSON.parse(json);
+    },
+
     getItemImage(data) {
       if (!data.image) {
         const image = data.game_name.split('_').join('.');
@@ -561,6 +568,22 @@ export default {
 
         span
           color #383F59
+
+      p.description
+        text-align left
+        font-size 12px
+        margin-top 10px
+
+      a.kits
+        width 100%
+        display block
+        text-align center
+        font-size 14px
+        color #B6BFD2
+        margin-top 10px
+
+        &:hover
+          text-decoration underline
 
       .button
         text-align center

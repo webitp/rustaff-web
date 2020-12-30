@@ -37,7 +37,7 @@
               span {{ formatCooldown(kit.cooldown) }}
           .icon-items
             .icon-items__item(v-for="item in kit.items")
-              .icon-items__item-value x{{ item.count }}
+              .icon-items__item-value(v-if="item.count > 1") x{{ item.count }}
               img(:src="`/images/items/${item.game_name}.png`")
             .icon-items__item.add(v-if="user && user.adminlvl", @click="modals.createKitItem.values.kit = kit.id; openModal('createKitItem')") +
 
@@ -104,6 +104,9 @@ export default {
   },
 
   async created() {
+    const query = this.$route.query;
+    if (query.tab)
+      this.currentTab = query.tab;
     await this.loadKits();
   },
 
@@ -218,4 +221,16 @@ export default {
 .icon-items__item
   img
     width 50%
+
+  &-value
+    right 0
+    left auto !important
+    top auto !important
+    bottom 0
+    background transparent
+    width auto
+    padding 0 5px
+    font-size 13px
+    color #6c768d
+    font-weight 500
 </style>

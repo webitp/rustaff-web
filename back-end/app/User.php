@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'steamid', 'avatar', 'adminlvl'
+        'name', 'steamid', 'avatar', 'adminlvl', 'remember_token'
     ];
 
     /**
