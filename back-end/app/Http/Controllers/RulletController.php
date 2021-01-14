@@ -88,32 +88,55 @@ class RulletController extends Controller
         $type = $request->type;
         $name = $request->name;
 
-        if ($type == 1) {
+        if ($type == 1) 
+        {
             $item = Items::where('game_name', '=', $name)->first();
             Purchases::create([
                 'steamid' => $steamid,
                 'item' => $item->id,
                 'count' => 1,
+                'type' => 2,
                 'used' => false
             ]);
         }
-        if ($type == 3) {
+        if ($type == 2) 
+        {
+            Purchases::create([
+                'steamid' => $steamid,
+                'item' => 0,
+                'count' => 1,
+                'type' => 2,
+                'hidden' => 1,
+                'used' => false
+            ]);
+        }
+        if ($type == 3) 
+        {
             $privilegies = Items::where('type', '=', 1)->get();
             $privilege = $privilegies[$request->param];
             Purchases::create([
                 'steamid' => $steamid,
                 'item' => $privilege->id,
                 'count' => 1,
+                'type' => 2,
                 'used' => false
             ]);
         }
-        if ($type == 4) {
+        if ($type == 4) 
+        {
             $user = User::where('steamid', '=', $steamid)->first();
             $user->money += $request->param;
             $user->save();
         }
 
         return response()->json('OK', 200);
+    }
+
+    public function setSkinState(Request $request)
+    {
+        $purchase = Purchases::where('steamid', '=', $request->steamid)->orderBy('id', 'DESC')->first();
+        $purchase->used = $request->state;
+        $purchase->save();
     }
 
     public function use(Request $request)

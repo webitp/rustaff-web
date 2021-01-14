@@ -17,6 +17,9 @@
           button(@click="createItem()") Создать
           button.close(@click="closeModal('createItem')") Закрыть
 
+    transition(name="fade")
+      trade-modal(v-if="modals.trade.open", @close="closeModal('trade')")
+
     .rulet-content
       .rulet-content__left
         .wheel
@@ -77,8 +80,13 @@ import store from '@/store';
 import rulletService from '../../services/rullet';
 import shopService from '../../services/shop';
 
+import TradeModal from '../TradeModal';
+
 export default {
   name: 'ProfilePurchases',
+  components: {
+    TradeModal
+  },
   data() {
     return {
       user: store.state.user,
@@ -107,6 +115,9 @@ export default {
             type: 1,
             isConstant: 0
           }
+        },
+        trade: {
+          open: false
         }
       },
 
@@ -179,9 +190,13 @@ export default {
         if (itemModel.type == 1) {
           const itemInfo = (await shopService.items.info(itemModel.name)).data;
           this.result.text = itemInfo.name;
+          if (itemInfo.count > 1)
+            this.result.text += ' x' + itemInfo.count;
         }
-        if (itemModel.type == 2)
+        if (itemModel.type == 2) {
           this.result.text = 'Игровой скин ' + itemModel.name.toUpperCase();
+          this.openModal('trade');
+        }
         if (itemModel.type == 3)
           this.result.text = 'Привилегия ' + this.PRIVILEGIES[predict.other];
         if (itemModel.type == 4) {
@@ -201,8 +216,8 @@ export default {
             text = 'Предмет успешно добавлен вам в инвентарь. Введите /store в чат, чтоб использовать.';
           }
           else if (itemModel.type == 2) {
-            title = 'Вы выиграли игровой предмет!';
-            text = 'Предмет успешно добавлен вам в инвентарь. Введите /store в чат, чтоб использовать.';
+            title = 'Вы выиграли игровой скин!';
+            text = 'Для получения перейдите во вкладку "инвентарь"';
           }
           else if (itemModel.type == 3) {
             title = 'Вы выиграли игровую привилегию!';

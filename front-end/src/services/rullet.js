@@ -29,5 +29,12 @@ export default {
 
   use(steamid) {
     return request.post(`/rullet/use`, { steamid: steamid });
+  },
+
+  setSkinState(id, state) {
+    return request.post(`rullet/skin/set.state`, {
+      steamid: id,
+      state: state
+    });
   }
 };

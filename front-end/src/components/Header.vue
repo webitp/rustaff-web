@@ -117,7 +117,7 @@ export default {
   height 105px
   display flex
   justify-content center
-  position absolute
+  position fixed
   top 0
   background #12121A
   z-index 999

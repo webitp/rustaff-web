@@ -52,3 +52,6 @@ Route::post('rullet/predict', 'RulletController@predict');
 Route::post('rullet/give', 'RulletController@givePrize');
 Route::post('rullet/access', 'RulletController@access');
 Route::post('rullet/use', 'RulletController@use');
+Route::post('rullet/skin/set.state', 'RulletController@setSkinState');
+
+Route::post('vk/notification', 'VK\NotificationController@send');
